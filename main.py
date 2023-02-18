@@ -3,7 +3,7 @@ import pandas as pd
 from fpdf import FPDF
 from pathlib import Path
 
-filepaths = glob.glob(f'Invocies\*.xlsx')
+filepaths = glob.glob(f"Invoices\\*.xlsx")
 
 for path in filepaths:
     df = pd.read_excel(path)
@@ -13,7 +13,7 @@ for path in filepaths:
     filename = Path(path).stem.split("-")[0]
     pdf.set_font(family='Times', style='B', size=12)
     pdf.cell(w=0, h=12, txt=f'Invoice no. {filename}', border=0, ln=1, align='L')
-    pdf.cell(w=0,h=12,txt=f'Date: {Path(path).stem.split("-")[1]}', border=0,align='L', ln=1)
+    pdf.cell(w=0, h=12, txt=f'Date: {Path(path).stem.split("-")[1]}', border=0, align='L', ln=1)
 
     columns = list(df.columns)
     columns = [name.replace('_', " ").title() for name in columns]
@@ -27,7 +27,7 @@ for path in filepaths:
     for index, row in df.iterrows():
         pdf.set_font(family='Times', style='', size=12)
         pdf.cell(w=25, h=12, txt=str(row['product_id']), border=1, align='L')
-        pdf.cell(w=50, h=12, txt=row['product_name'],border=1, align='L')
+        pdf.cell(w=50, h=12, txt=row['product_name'], border=1, align='L')
         pdf.cell(w=40, h=12, txt=str(row['amount_purchased']), border=1, align='L')
         pdf.cell(w=30, h=12, txt=str(row['price_per_unit']), border=1, align='L')
         pdf.cell(w=25, h=12, txt=str(row['total_price']), border=1, align='L', ln=1)
@@ -44,8 +44,6 @@ for path in filepaths:
 
     pdf.set_font(family='Times', style='B', size=12)
     pdf.cell(w=22, h=12, txt="PythonHow", border=0, align='L')
-    pdf.image('images/image3.png' )
+    pdf.image('images/image3.png')
 
-    pdf.output(f"PDF's/{filename}.pdf")
-
-
+    pdf.output(f"PDFs/{filename}.pdf")
